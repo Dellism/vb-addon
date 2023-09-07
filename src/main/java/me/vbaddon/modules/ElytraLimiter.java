@@ -34,7 +34,7 @@ public class ElytraLimiter extends Module {
     private void onTick(TickEvent.Pre event) {
         double maxspeed = maxSpeed.get();
         double speed = mc.player.getVelocity().horizontalLength() * 20;
-        //info("speed: " + speed);
+        info("speed: " + speed);
         if (!mc.player.isFallFlying() || speed <= maxspeed) return;
         double multiplier = maxspeed / speed;
         mc.player.setVelocity(mc.player.getVelocity().x * multiplier, mc.player.getVelocity().y, mc.player.getVelocity().z * multiplier);
