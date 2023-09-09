@@ -38,6 +38,13 @@ public class AutoAutoLog extends Module {
         .build()
     );
 
+    private final Setting<Boolean> chatLog = sgGeneral.add(new BoolSetting.Builder()
+        .name("chat-log")
+        .description("Logs in chat when AutoLog is toggled.")
+        .defaultValue(true)
+        .build()
+    );
+
 
     public AutoAutoLog() {
         super(VBAddon.CATEGORY, "auto-auto-log", "Automatically enables AutoLog module after being AFK for n seconds.");
@@ -52,12 +59,14 @@ public class AutoAutoLog extends Module {
 
 
         if (enable.get() && ticksAFK / 20 == seconds.get() && !autoLog.isActive()){
-            info("Enabled AutoLog after " + seconds.get() + " seconds of AFK!");
+            if (chatLog.get())
+                info("Enabled AutoLog after " + seconds.get() + " seconds of AFK!");
             autoLog.toggle();
         }
 
         if (disable.get() && ticksAFK == 0 && autoLog.isActive()) {
-            info("Disabled AutoLog!");
+            if (chatLog.get())
+                info("Disabled AutoLog!");
             autoLog.toggle();
         }
     }
