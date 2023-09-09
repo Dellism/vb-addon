@@ -1,6 +1,7 @@
 package me.vbaddon;
 
 import me.vbaddon.modules.AutoAutoLog;
+import me.vbaddon.modules.AutoChestSwap;
 import me.vbaddon.modules.BetterTabPlus;
 import me.vbaddon.modules.ElytraLimiter;
 import com.mojang.logging.LogUtils;
@@ -20,6 +21,7 @@ public class VBAddon extends MeteorAddon {
         // Modules
         Modules.get().add(new ElytraLimiter());
         Modules.get().add(new AutoAutoLog());
+        Modules.get().add(new AutoChestSwap());
         //Modules.get().add(new BetterTabPlus());
     }
 
