@@ -3,6 +3,7 @@ package me.vbaddon.modules;
 import me.vbaddon.VBAddon;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.BoolSetting;
+import meteordevelopment.meteorclient.settings.IntSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
@@ -28,17 +29,37 @@ public class AutoChestSwap extends Module {
         .build()
     );
 
+    private final Setting<Boolean> heightSwitch = sgGeneral.add(new BoolSetting.Builder()
+        .name("height-switch")
+        .description("Switches elytra if fallen more than n blocks.")
+        .defaultValue(false)
+        .build()
+    );
+
+    private final Setting<Integer> height = sgGeneral.add(new IntSetting.Builder()
+        .name("height")
+        .description("The height.")
+        .sliderMin(2)
+        .sliderMax(30)
+        .defaultValue(10)
+        .visible(heightSwitch::get)
+        .build()
+    );
+
     @EventHandler
     private void onTick(TickEvent.Post event) {
         Item currentItem = mc.player.getEquippedStack(EquipmentSlot.CHEST).getItem();
+        boolean flag = false;
 
         if (ticksOnGround == 0 && currentItem != Items.ELYTRA) {
-            if (!firework.get()) equipElytra();
-            if (firework.get() && mc.player.getMainHandStack().getItem() == Items.FIREWORK_ROCKET)
-                equipElytra();
+            if (!firework.get()) flag = true;
+            if (firework.get() && mc.player.getMainHandStack().getItem() == Items.FIREWORK_ROCKET) flag = true;
+            if (heightSwitch.get() && mc.player.fallDistance > height.get()) flag = true;
         } else if (ticksOnGround == 20 && !(currentItem instanceof ArmorItem && ((ArmorItem) currentItem).getSlotType() == EquipmentSlot.CHEST)) { //unreadable
             equipChestplate();
         }
+
+        if (flag) equipElytra();
 
         if (mc.player.isOnGround()) ticksOnGround++;
         else ticksOnGround = 0;
