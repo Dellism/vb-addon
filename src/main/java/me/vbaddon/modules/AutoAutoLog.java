@@ -47,7 +47,7 @@ public class AutoAutoLog extends Module {
 
 
     public AutoAutoLog() {
-        super(VBAddon.CATEGORY, "auto-auto-log", "Automatically enables AutoLog module after being AFK for n seconds.");
+        super(VBAddon.CATEGORY, "afk-log", "Automatically enables AutoLog module after being AFK for n seconds.");
     }
 
     @EventHandler
@@ -87,7 +87,7 @@ public class AutoAutoLog extends Module {
         public boolean hasChangedSinceLastCheck() {
             boolean result;
             float pitchNow = mc.player.getPitch();
-            float rollNow = mc.player.getRoll();
+            float rollNow = mc.player.getYaw();
 
             result = pitch != pitchNow || roll != rollNow;
             this.pitch = pitchNow;

@@ -3,7 +3,7 @@
   "id": "vb-addon",
   "version": "0.0.1",
   "name": "VB Addon",
-  "description": "Module collection.",
+  "description": "Meteor addon intended for karasique.com.",
   "authors": [
     "vbsync"
   ],
@@ -24,7 +24,7 @@
     "meteor-client:color": "225,25,25"
   },
   "depends": {
-    "java": ">=17",
+    "java": ">=21",
     "minecraft": ">=${mc_version}",
     "meteor-client": "*"
   }

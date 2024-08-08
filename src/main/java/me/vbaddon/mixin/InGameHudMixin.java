@@ -9,7 +9,7 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
-    @ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/KeyBinding;isPressed()Z"))
+    @ModifyExpressionValue(method = "renderPlayerList", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/KeyBinding;isPressed()Z"))
     private boolean alwaysPress(boolean original) {
         BetterTabPlus betterTabPlus = Modules.get().get(BetterTabPlus.class);
         return betterTabPlus.isActive() ? betterTabPlus.alwaysShow.get() || original : original;

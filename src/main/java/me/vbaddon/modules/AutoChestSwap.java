@@ -51,7 +51,7 @@ public class AutoChestSwap extends Module {
         Item currentItem = mc.player.getEquippedStack(EquipmentSlot.CHEST).getItem();
         boolean flag = false;
 
-        if (ticksOnGround == 0 && currentItem != Items.ELYTRA) {
+        if (ticksOnGround == 0 && currentItem != Items.ELYTRA) { // bro this part of code so shit im not a real dev
             if (!firework.get()) flag = true;
             if (firework.get() && mc.player.getMainHandStack().getItem() == Items.FIREWORK_ROCKET) flag = true;
             if (heightSwitch.get() && mc.player.fallDistance > height.get()) flag = true;
@@ -60,6 +60,7 @@ public class AutoChestSwap extends Module {
         }
 
         if (flag) equipElytra();
+
 
         if (mc.player.isOnGround()) ticksOnGround++;
         else ticksOnGround = 0;
